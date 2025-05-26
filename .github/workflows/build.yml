@@ -44,7 +44,7 @@ jobs:
         include:
           - os: windows-latest
             TARGET: windows
-            CMD_BUILD: pyinstaller -F -n autodarts-detection-grabber -i resources/autodarts-detection-grabber.ico --add-data "templates;templates" --add-data "static;static" --collect-all certifi grabber.py
+            CMD_BUILD: pyinstaller -F -n autodarts-detection-grabber -i resources/autodarts-detection-grabber.ico --collect-all certifi grabber.py
             OUT_FILE_NAME: autodarts-detection-grabber.exe
             ASSET_MIME: application/vnd.microsoft.portable-executable
 
