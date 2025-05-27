@@ -1,3 +1,6 @@
+# 1.1.0
+- change tool name
+
 # 1.0.4
 - build Readme
 - grab live Image
