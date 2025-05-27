@@ -23,7 +23,7 @@ jobs:
         release_name: Release ${{ github.ref }}
         body: |
             # Changes in this Release
-            - first release of autodarts-detection-grabber
+            - first release of autodarts-detection-log-collector
         draft: false
         prerelease: false
         
@@ -44,8 +44,8 @@ jobs:
         include:
           - os: windows-latest
             TARGET: windows
-            CMD_BUILD: pyinstaller -F -n autodarts-detection-grabber -i resources/autodarts-detection-grabber.ico --collect-all certifi grabber.py
-            OUT_FILE_NAME: autodarts-detection-grabber.exe
+            CMD_BUILD: pyinstaller -F -n autodarts-detection-log-collector -i resources/autodarts-detection-log-collector.ico --collect-all certifi grabber.py
+            OUT_FILE_NAME: autodarts-detection-log-collector.exe
             ASSET_MIME: application/vnd.microsoft.portable-executable
 
     steps:
