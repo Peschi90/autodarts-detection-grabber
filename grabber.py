@@ -19,7 +19,7 @@ def collect_data(HOST, USERNAME, PASSWORD):
         return None, f"Verbindung fehlgeschlagen: {e}"
 
     # journalctl Befehl ausführen
-    stdin, stdout, stderr = ssh.exec_command("journalctl -u autodarts -n 20")
+    stdin, stdout, stderr = ssh.exec_command("journalctl -u autodarts -n 25")
     output = stdout.read().decode()
     ssh.close()
 

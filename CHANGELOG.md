@@ -1,3 +1,6 @@
+# 1.2.2
+- increased logfile rows
+
 # 1.2.1
 - changed HTML structure
 
