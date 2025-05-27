@@ -3,6 +3,7 @@ import datetime
 import os
 import cv2
 import argparse
+import zipfile
 
 def main():
     parser = argparse.ArgumentParser(description="Autodarts Log & Bild Grabber")
@@ -40,26 +41,43 @@ def main():
 
     print(f"Log gespeichert in: {filepath}")
 
-    # Bild herunterladen
-    stream_url_http = f"http://{HOST}:3180/api/streams/detection"
-    stream_url_https = f"https://{HOST}:3180/api/streams/detection"
-    image_filename = f"{now}.jpg"
-    image_filepath = os.path.join(os.getcwd(), image_filename)
-    try:
-        cap = cv2.VideoCapture(stream_url_http)
+    # Hilfsfunktion für Bild-Download
+    def grab_image(url_http, url_https, out_path):
+        cap = cv2.VideoCapture(url_http)
         ret, frame = cap.read()
         if not ret:
             cap.release()
-            cap = cv2.VideoCapture(stream_url_https)
+            cap = cv2.VideoCapture(url_https)
             ret, frame = cap.read()
         if ret:
-            cv2.imwrite(image_filepath, frame)
-            print(f"Bild gespeichert in: {image_filepath}")
+            cv2.imwrite(out_path, frame)
+            print(f"Bild gespeichert in: {out_path}")
         else:
-            print("Kein Bild aus dem Stream erhalten.")
+            print(f"Kein Bild aus dem Stream {url_http} erhalten.")
         cap.release()
-    except Exception as e:
-        print(f"Bild konnte nicht geladen werden: {e}")
+
+    # Bild 1: detection
+    stream_url_http = f"http://{HOST}:3180/api/streams/detection"
+    stream_url_https = f"https://{HOST}:3180/api/streams/detection"
+    image_filename = f"{now}_detection.jpg"
+    image_filepath = os.path.join(os.getcwd(), image_filename)
+    grab_image(stream_url_http, stream_url_https, image_filepath)
+
+    # Bild 2: live
+    live_url_http = f"http://{HOST}:3180/api/streams/live"
+    live_url_https = f"https://{HOST}:3180/api/streams/live"
+    live_image_filename = f"{now}_live.jpg"
+    live_image_filepath = os.path.join(os.getcwd(), live_image_filename)
+    grab_image(live_url_http, live_url_https, live_image_filepath)
+
+    # ZIP-Archiv erstellen
+    zip_filename = f"{now}.zip"
+    zip_filepath = os.path.join(os.getcwd(), zip_filename)
+    with zipfile.ZipFile(zip_filepath, "w") as zipf:
+        zipf.write(filepath, arcname=filename)
+        zipf.write(image_filepath, arcname=image_filename)
+        zipf.write(live_image_filepath, arcname=live_image_filename)
+    print(f"Alle Dateien als ZIP gespeichert: {zip_filepath}")
 
 if __name__ == "__main__":
     main()
