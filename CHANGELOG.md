@@ -1,3 +1,6 @@
+# 1.2.0
+- build a webinterface to use the Tool from everywhere.
+
 # 1.1.0
 - change tool name
 
