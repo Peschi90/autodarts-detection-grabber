@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Autodarts detection log collector</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            background: rgba(30, 60, 120, 0.85);
+            max-width: 400px;
+            margin: 60px auto 0 auto;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            padding: 32px 32px 24px 32px;
+        }
+        
+        h2 {
+            text-align: center;
+            margin-bottom: 28px;
+            color: #bbdefb;
+            letter-spacing: 1px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 12px;
+            color: #e3f2fd;
+            font-weight: 500;
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px 10px;
+            margin-top: 4px;
+            margin-bottom: 18px;
+            border: none;
+            border-radius: 6px;
+            background: #e3f2fd;
+            color: #0d47a1;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+        
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #1565c0;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 8px;
+        }
+        
+        button:hover {
+            background: #0d47a1;
+        }
+        
+        .download-link {
+            display: block;
+            margin: 24px auto 0 auto;
+            text-align: center;
+            background: #64b5f6;
+            color: #0d47a1;
+            padding: 10px 0;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            width: 100%;
+            transition: background 0.2s;
+        }
+        
+        .download-link:hover {
+            background: #1976d2;
+            color: #fff;
+        }
+        
+        .error {
+            background: #e57373;
+            color: #fff;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Autodarts detection log collector</h2>
+        <form method="post" action="/collect">
+            <label>SSH Host:
+                <input type="text" name="host" value="{{ host }}" required>
+            </label>
+            <label>SSH Username:
+                <input type="text" name="username" value="{{ username }}" required>
+            </label>
+            <label>SSH Password:
+                <input type="password" name="password" value="{{ password }}" required>
+            </label>
+            <button type="submit">Collect</button>
+        </form>
+        {% if zipfile %}
+        <a class="download-link" href="{{ url_for('download', filename=zipfile) }}">ZIP herunterladen</a> {% endif %}
+    </div>
+</body>
+
+</html>
