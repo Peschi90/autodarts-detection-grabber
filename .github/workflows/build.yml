@@ -23,7 +23,7 @@ jobs:
         release_name: Release ${{ github.ref }}
         body: |
             # Changes in this Release
-            - first release of autodarts-detection-log-collector
+            **Full Changelog**: https://github.com/Peschi90/autodarts-detection-log-collector/blob/${{ github.ref }}/changelog.md
         draft: false
         prerelease: false
         

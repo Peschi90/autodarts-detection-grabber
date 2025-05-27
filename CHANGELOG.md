@@ -1,3 +1,6 @@
+# 1.2.1
+- changed HTML structure
+
 # 1.2.0
 - build a webinterface to use the Tool from everywhere.
 
